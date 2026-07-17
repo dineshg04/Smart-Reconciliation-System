@@ -23,7 +23,7 @@ const Home = () => {
 
           <div className="flex flex-row justify-center gap-5">
             <Link
-              to="/uploadfile"
+              to="/login"
               className=" items-center justify-center px-10 py-5 text-lg font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg hover:shadow-xl "
             >
               Get Started
