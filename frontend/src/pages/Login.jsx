@@ -10,14 +10,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async () => { 
 
     try{
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/api/auth/login", { email, password });
 
       localStorage.setItem('authtoken',res.data.token);
+      localStorage.setItem('role', res.data.user.role);
 
-      console.log("successfully logged in!",res.data);
+      console.log("successfully logged in!");
       navigate("/");
     }catch(error){
       console.log("Error in Registering:",error);

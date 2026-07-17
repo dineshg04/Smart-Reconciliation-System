@@ -23,9 +23,9 @@ const register = async (req,res)=>{
     token: jwttoken,
     user: {
       id: user._id,
-      name: user.name,
+      name: user.name, 
       role:user.role
-    }
+    } 
   });
 
 }
@@ -45,7 +45,6 @@ const login = async (req,res)=>{
     return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  console.log(user);
    const jwttoken = generateToken(user);
 
 

@@ -3,7 +3,7 @@ import { Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recha
 import Navbar from '../components/Navbar';
 import api from '../api/axiosapi';
 
-const COLORS = ['#10b981', '#ef4444', '#f59e0b'];
+const COLORS = ['#10b981', '#ef4444', '#f59e0b', '#35c2de'];
 
 export default function ReconciliationDashboard() {
   const [chartData, setChartData] = useState([]);
@@ -16,8 +16,8 @@ export default function ReconciliationDashboard() {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const res = await api.get("/auth/dashboard/stats");
-        console.log(res.data);
+        const res = await api.get("/api/auth/dashboard/stats");
+      
         
         setResults(res.data);
         
@@ -26,6 +26,7 @@ export default function ReconciliationDashboard() {
           { name: 'Matched', value: res.data.matched },
           { name: 'Unmatched', value: res.data.unmatched },
           { name: 'Duplicates', value: res.data.duplicate },
+          { name: 'Partially Matched', value: res.data.partial },
         ]);
       } catch (err) {
         console.error('Error fetching stats:', err);
@@ -69,6 +70,10 @@ export default function ReconciliationDashboard() {
         <div className="bg-white p-6 rounded-xl shadow">
           <h3 className="text-sm font-medium text-gray-500">Duplicates</h3>
           <p className="text-3xl font-bold text-amber-600 mt-2">{results.duplicate}</p>
+        </div>
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h3 className="text-sm font-medium text-gray-500">Partially Matched</h3>
+          <p className="text-3xl font-bold text-cyan-400 mt-2">{results.partial}</p>
         </div>
         <div className="bg-white p-6 rounded-xl shadow">
           <h3 className="text-sm font-medium text-gray-500">Accuracy</h3>

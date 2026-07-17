@@ -12,11 +12,9 @@ const authentication = (req,res,next)=>{
         }
 
         const token = authHeader.split(' ')[1];
-        console.log(req.headers);
-        
+
        const decoded = jwt.verify(token,JWT_SECRET)
             req.user = decoded;
-           console.log(req.user);
             next();
     }catch(error){
         res.status(401).json({message:"Invalid token"})

@@ -19,6 +19,7 @@ const Navbar = () => {
     navigate('/login');                         
   };
 
+   const role = localStorage.getItem("role");
   return (
     <nav className="bg-indigo-50 rounded-3xl border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -40,7 +41,14 @@ const Navbar = () => {
                 Dashboard
               </Link>
               <Link
-                to="/uploadfile"
+                to={role === "Viewer" ? "#" : "/uploadfile"}
+                  onClick={(e) => {
+                    if (role === "Viewer") {
+                      e.preventDefault();
+                      alert("Viewers are not authorized to upload files.");
+                    }
+                  }}
+               // to="/uploadfile"
                 className="text-gray-700 hover:text-indigo-700 text-sm font-medium transition-colors"
               >
                 Reconciliation

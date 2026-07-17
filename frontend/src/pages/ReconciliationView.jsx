@@ -12,32 +12,44 @@ export default function ReconciliationView() {
   const [editingRecord, setEditingRecord] = useState(null);
 
   useEffect(() => {
+  const timer = setTimeout(() => {
     const fetchData = async () => {
       try {
-        const uploadJobId = location.state?.uploadJobId || localStorage.getItem("jobid") ||{};
-        localStorage.setItem('jobid',uploadJobId);
+        const uploadJobId =
+          location.state?.uploadJobId ||
+          localStorage.getItem("jobid") ||
+          {};
+
+        localStorage.setItem("jobid", uploadJobId);
+
         if (!uploadJobId) {
           alert("no file data");
           setLoading(false);
           return;
         }
 
-        console.log('Fetching data for uploadJobId:', uploadJobId);
+        console.log("Fetching data for uploadJobId:", uploadJobId);
 
-        const res = await api.get(`/auth/reconciliation/view/${uploadJobId}`);
-
-        console.log('Response data:', res.data);
+        const res = await api.get(
+          `/api/auth/reconciliation/view/${uploadJobId}`
+        );
+        
+          console.log(res.data);
         setResults(res.data);
       } catch (err) {
-        console.error('Error fetching data:', err);
-        alert('Error loading data');
+        console.error("Error fetching data:", err);
+        alert("Error loading data");
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, 5000); // ⏱ 30 seconds
+
+  // cleanup (important!)
+  return () => clearTimeout(timer);
+}, []);
 
   const openEditModal = (result) => {
     const record = result.recordId || {};
@@ -75,7 +87,7 @@ export default function ReconciliationView() {
       date: editingRecord.date || undefined,
     };
 
-    const res = await api.put(`/auth/records/correct/${editingRecord.id}`, updates);
+    const res = await api.put(`/api/auth/records/correct/${editingRecord.id}`, updates);
 
     if (res.status !== 200) {
       throw new Error('Failed to save changes');
@@ -86,7 +98,7 @@ export default function ReconciliationView() {
     // Refresh the list using the correct endpoint
     const { uploadJobId } = location.state || {};
     if (uploadJobId) {
-      const refreshRes = await api.get(`/auth/reconciliation/view/${uploadJobId}`);
+      const refreshRes = await api.get(`/api/auth/reconciliation/view/${uploadJobId}`);
       setResults(refreshRes.data);
     }
 
@@ -167,7 +179,14 @@ export default function ReconciliationView() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <button
-                        onClick={() => openEditModal(item)}
+                        onClick={() => {
+                          const role = localStorage.getItem('role');
+                          if(role=='Viewer'){
+                            alert("You are not Authorized to Edit!");
+                          }else{
+                             openEditModal(item)
+                          }
+                          }}
                         className="text-indigo-600 hover:text-indigo-900 font-medium"
                       >
                         Edit

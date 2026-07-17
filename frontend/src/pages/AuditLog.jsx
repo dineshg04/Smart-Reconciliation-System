@@ -12,8 +12,9 @@ export default function Auditlog() {
     const fetchAuditLogs = async () => {
       try {
         setLoading(true);
-        const res = await api.get('/auth/auditlog/all');
-        console.log('Audit logs:', res.data);
+        const res = await api.get('/api/auth/auditlog/all');
+        console.log('Audit logs');
+        console.log(res.data);
         setLogs(res.data);
       } catch (err) {
         setError(err.response?.data?.message || err.message);

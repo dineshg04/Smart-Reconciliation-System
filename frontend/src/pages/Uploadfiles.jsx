@@ -87,6 +87,8 @@ export default function UploadAndMap() {
   );
 
   const handleSubmit = async () => {
+
+    
     if (!file || !isMappingComplete) return;
 
     const cleanMapping = {
@@ -103,7 +105,7 @@ export default function UploadAndMap() {
       formData.append('file', file);
       formData.append('columnMapping', JSON.stringify(cleanMapping));
 
-      const res = await api.post('/auth/uploadfile/upload',
+      const res = await api.post('/api/auth/uploadfile/upload',
        formData,{
           headers: {
             "Content-Type": "multipart/form-data",
@@ -111,12 +113,12 @@ export default function UploadAndMap() {
         }
       );
       
-        console.log(res);
+       
       //if (!res.ok) throw new Error('Upload failed');
 
       alert("uploaded Successfully")
       setUploadjobid(res.data.uploadJobId);
-      console.log(uploadjobid);
+    
       setUploadStatus('success');
     } catch (err) {
       console.error('Upload error:', err);
@@ -131,10 +133,10 @@ export default function UploadAndMap() {
     // navigate("/reconciliation", { state: { uploadId: backendResponse?.id } });
     try{
 
-      const res = await api.post("/auth/reconciliation/start",{
+      const res = await api.post("/api/auth/reconciliation/start",{
           uploadJobId : uploadjobid
       });
-      console.log(res.data);
+  
       navigate("/reconciliationview",{
         state:{
           uploadJobId: uploadjobid,

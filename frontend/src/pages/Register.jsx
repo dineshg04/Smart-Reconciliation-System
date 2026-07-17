@@ -15,12 +15,12 @@ const Register = () => {
 
     try{
       
-      const res = await api.post("auth/register", {name, email, password });
-
+      const res = await api.post("/api/auth/register", {name, email, password });
+       console.log(res.data);
        localStorage.setItem('authtoken',res.data.accesstoken);
 
-      console.log("successfully Registered!",res.data);
-     navigate("/home");
+      console.log("successfully Registered!");
+     navigate("/");
     }catch(error){
       console.log("Error in Registering:",error);
     }
