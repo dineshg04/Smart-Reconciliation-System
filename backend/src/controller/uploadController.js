@@ -55,7 +55,7 @@ try{
     } else {
       rows = await parseExcel(file.buffer);
     }
-    console.log(rows);
+    
     
     const newrecord = rows.map(row=>({
         uploadJobId: newuploadjob._id,
@@ -66,7 +66,7 @@ try{
       rawData: row
     }));
 
-    console.log(newrecord);
+  
     await Record.insertMany(newrecord);
 
     newuploadjob.totalRecords= newrecord.length;

@@ -34,7 +34,7 @@ export default function ReconciliationView() {
           `/api/auth/reconciliation/view/${uploadJobId}`
         );
         
-          console.log(res.data);
+          
         setResults(res.data);
       } catch (err) {
         console.error("Error fetching data:", err);
