@@ -16,7 +16,7 @@ const register = async (req,res)=>{
         name,
         email,
         password:hashedpassword,
-        role:"Viewer"
+        role:"Analyst"
     });
     const jwttoken = generateToken(user);
     res.status(201).json({
