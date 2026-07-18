@@ -13,10 +13,10 @@ const recordcorrectionrouter = require('./src/routes/recordcorrectionroutes');
 
 
 app.use(cors({origin:"*"}));
-/*app.use(cors({
-  origin: "https://smart-reconciliation-system-fronten.vercel.app",
+app.use(cors({
+  origin: "https://smart-reconciliation-system-gamma.vercel.app",
   credentials: true
-}));*/
+}));
 app.use(express.json());
 app.use('/api/auth/',authrouter);
 app.use('/api/auth/uploadfile/',uploadrouter);
