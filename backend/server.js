@@ -14,7 +14,7 @@ const recordcorrectionrouter = require('./src/routes/recordcorrectionroutes');
 
 app.use(cors({origin:"*"}));
 app.use(cors({
-  origin: "https://smart-reconciliation-system-gamma.vercel.app/",
+  origin: "https://smart-reconciliation-system-gamma.vercel.app",
   credentials: true
 }));
 app.use(express.json());
